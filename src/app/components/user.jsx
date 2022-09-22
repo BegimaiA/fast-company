@@ -1,6 +1,6 @@
 import React from 'react';
 import Quality from "./quality";
-import Bookmarks from "./bookmarks";
+
 const User = ({user, ...rest}) => {
 
     return (
@@ -20,11 +20,9 @@ const User = ({user, ...rest}) => {
               <td>{user.rate}/5</td>
               <td>
                   <button onClick={()=>rest.toggle(user._id)}>
-                      {console.log(rest.bookmarkStatus)}
                       {rest.bookmarkStatus?   <i className="bi bi-bookmark-heart-fill"></i>
                         :
                         <i className="bi bi-bookmark"></i> }
-
                   </button>
               </td>
               <td>

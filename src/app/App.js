@@ -4,6 +4,8 @@ import SearchStatus from "./components/searchStatus";
 import api from "../api";
 import Bookmarks from "./components/bookmarks";
 
+
+
 const App = () => {
     const [users, setUsers] = useState(api.users.fetchAll())
     const [bookmarkStatus, setBookmarkStatus] = useState(false)
@@ -11,9 +13,14 @@ const App = () => {
         return   setUsers(users.filter((item)=>item._id !==userId))
     }
 
+
     const handleToggleBookmarks=(id)=>{
-        const elementIndex = users.findIndex((c) => c._id === id);
-        setBookmarkStatus(users[elementIndex].bookmark=!users[elementIndex].bookmark)
+        const updatedUsers = users.map((el)=>(
+          el._id === id? {...el, bookmark: setBookmarkStatus(!bookmarkStatus)}
+            :
+            el
+        ))
+                setUsers(updatedUsers)
     }
     return (
       <>
@@ -24,7 +31,9 @@ const App = () => {
                  onDelete={handleDelete}
                  onToggle={handleToggleBookmarks}
                  bookmarkStatus={bookmarkStatus}
+
           />
+
       </>
     );
 };
