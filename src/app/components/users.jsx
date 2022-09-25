@@ -26,7 +26,6 @@ const Users = ({users, ...rest}) => {
                           user=  {user}
                           onDelete={rest.onDelete}
                           toggle={rest.onToggle}
-                          bookmarkStatus={rest.bookmarkStatus}
                     />
                    ))
                }
