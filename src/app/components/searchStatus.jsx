@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 const SearchStatus = ({ length }) => {
     const getBadgeClasses = () => {
         let classes = "badge p-2 fs-3 ";
@@ -22,8 +21,8 @@ const SearchStatus = ({ length }) => {
                 <span>
                     {length > 0
                         ? `${
-                              length + " " + renderPhrase(length)
-                          } с тобой сегодня`
+                            length + " " + renderPhrase(length)
+                        } с тобой сегодня`
                         : "Никто с тобой не тусанет"}
                 </span>
             </h1>

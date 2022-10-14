@@ -4,12 +4,9 @@ import PropTypes from "prop-types";
 const Bookmarks = ({ status, ...rest }) => {
     return (
         <>
-            {status ?
-              (
+            {status ? (
                 <i className="bi bi-bookmark-heart-fill"></i>
-            )
-              :
-              (
+            ) : (
                 <i className="bi bi-bookmark"></i>
             )}
         </>
