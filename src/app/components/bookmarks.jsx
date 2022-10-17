@@ -3,13 +3,9 @@ import PropTypes from "prop-types";
 
 const Bookmarks = ({ status, ...rest }) => {
     return (
-        <>
-            {status ? (
-                <i className="bi bi-bookmark-heart-fill"></i>
-            ) : (
-                <i className="bi bi-bookmark"></i>
-            )}
-        </>
+        <button {...rest}>
+            <i className={"bi bi-bookmark" + (status ? "-heart-fill" : "")}></i>
+        </button>
     );
 };
 Bookmarks.propTypes = {

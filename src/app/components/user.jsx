@@ -2,34 +2,40 @@ import React from "react";
 import Quality from "./quality";
 import Bookmarks from "./bookmarks";
 import PropTypes from "prop-types";
-const User = ({ user, ...rest }) => {
+const User = ({
+    _id,
+    name,
+    qualities,
+    profession,
+    completedMeetings,
+    rate,
+    onDelete,
+    bookmark,
+    onToggleBookMark
+}) => {
     return (
         <>
-            <tr key={user._id}>
-                <th scope="row">{user.name}</th>
+            <tr key={_id}>
+                <th scope="row">{name}</th>
                 <td>
-                    {user?.qualities.map((quality) => (
-                        <Quality
-                            key={quality._id}
-                            color={quality.color}
-                            name={quality.name}
-                            id={quality._id}
-                        />
+                    {qualities.map((quality) => (
+                        <Quality key={quality._id} {...quality} />
                     ))}
                 </td>
-                <td>{user.profession.name}</td>
-                <td>{user.completedMeetings}</td>
-                <td>{user.rate}/5</td>
+                <td>{profession.name}</td>
+                <td>{completedMeetings}</td>
+                <td>{rate}/5</td>
                 <td>
-                    <button onClick={() => rest.toggle(user._id)}>
-                        <Bookmarks status={user.bookmark} />
-                    </button>
+                    <Bookmarks
+                        status={bookmark}
+                        onClick={() => onToggleBookMark(_id)}
+                    />
                 </td>
                 <td>
                     <button
                         type="button"
                         className="btn-sm btn-danger p-2 rounded "
-                        onClick={() => rest.onDelete(user._id)}
+                        onClick={() => onDelete(_id)}
                     >
                         Delete
                     </button>
@@ -39,6 +45,14 @@ const User = ({ user, ...rest }) => {
     );
 };
 User.propTypes = {
-    user: PropTypes.objectOf(PropTypes.any)
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    qualities: PropTypes.array,
+    profession: PropTypes.object.isRequired,
+    completedMeetings: PropTypes.number.isRequired,
+    rate: PropTypes.number.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    bookmark: PropTypes.bool,
+    onToggleBookMark: PropTypes.func.isRequired
 };
 export default User;

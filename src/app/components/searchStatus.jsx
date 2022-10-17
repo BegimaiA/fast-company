@@ -21,8 +21,8 @@ const SearchStatus = ({ length }) => {
                 <span>
                     {length > 0
                         ? `${
-                            length + " " + renderPhrase(length)
-                        } с тобой сегодня`
+                              length + " " + renderPhrase(length)
+                          } с тобой сегодня`
                         : "Никто с тобой не тусанет"}
                 </span>
             </h1>
@@ -30,6 +30,6 @@ const SearchStatus = ({ length }) => {
     );
 };
 SearchStatus.propTypes = {
-    length: PropTypes.number.isRequired
+    length: PropTypes.number
 };
 export default SearchStatus;
