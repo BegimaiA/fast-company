@@ -7,7 +7,6 @@ const App = () => {
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
     }, []);
-  console.log (users)
     const handleDelete = (userId) => {
         return setUsers(users?.filter((item) => item._id !== userId));
     };

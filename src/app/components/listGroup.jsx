@@ -1,15 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-const ListGroup = ({
-    items,
-    onItemSelect,
-    selectedItem
-}) => {
-
+const ListGroup = ({ items, onItemSelect, selectedItem }) => {
     return (
         <ul className="list-group">
             {items.map((item) => (
-
                 <li
                     key={item._id}
                     className={
@@ -19,7 +13,7 @@ const ListGroup = ({
                     role="button"
                     onClick={() => onItemSelect(item)}
                 >
-                  {item.name}
+                    {item.name}
                 </li>
             ))}
         </ul>
