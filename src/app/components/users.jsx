@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import SearchStatus from "./searchStatus";
 
 const Users = ({ users: allUsers, ...rest }) => {
-    const pageSize = 2;
+    const pageSize = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -34,9 +34,8 @@ const Users = ({ users: allUsers, ...rest }) => {
         setSelectedProf(item);
     };
     console.log("all", allUsers);
-    console.log ("filter", filteredUsers)
-    const count = 12
-      // filteredUsers.length;
+    console.log("filter", filteredUsers);
+    const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
     const clearFilter = () => {
