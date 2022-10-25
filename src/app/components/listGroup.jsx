@@ -1,33 +1,60 @@
 import React from "react";
 import PropTypes from "prop-types";
-const ListGroup = ({ items, onItemSelect, selectedItem }) => {
+
+const GroupList = ({
+    items,
+    valueProperty,
+    contentProperty,
+    onItemSelect,
+    selectedItem
+}) => {
+    if (!Array.isArray(items)) {
+        return (
+            <ul className="list-group">
+                {Object.keys(items).map((item) => (
+                    <li
+                        key={items[item][valueProperty]}
+                        className={
+                            "list-group-item" +
+                            (items[item] === selectedItem ? " active" : "")
+                        }
+                        onClick={() => onItemSelect(items[item])}
+                        role="button"
+                    >
+                        {items[item][contentProperty]}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
     return (
         <ul className="list-group">
             {items.map((item) => (
                 <li
-                    key={item._id}
+                    key={item[valueProperty]}
                     className={
                         "list-group-item" +
                         (item === selectedItem ? " active" : "")
                     }
-                    role="button"
                     onClick={() => onItemSelect(item)}
+                    role="button"
                 >
-                    {item.name}
+                    {item[contentProperty]}
                 </li>
             ))}
         </ul>
     );
 };
-ListGroup.defaultProps = {
+GroupList.defaultProps = {
     valueProperty: "_id",
     contentProperty: "name"
 };
-ListGroup.propTypes = {
+GroupList.propTypes = {
     items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    contentProperty: PropTypes.string.isRequired,
     valueProperty: PropTypes.string.isRequired,
+    contentProperty: PropTypes.string.isRequired,
     onItemSelect: PropTypes.func,
     selectedItem: PropTypes.object
 };
-export default ListGroup;
+
+export default GroupList;
