@@ -4,6 +4,7 @@ import API from "../../api";
 
 const UserPage = () => {
     const params = useParams();
+    console.log(params.userId);
     const history = useHistory();
     const [user, setUser] = useState({});
     console.log("params", params);
@@ -16,7 +17,7 @@ const UserPage = () => {
     };
     return (
         <div>
-            {user._id ? (
+            {user?._id ? (
                 <>
                     <h1>{user.name}</h1>
                     <h4>

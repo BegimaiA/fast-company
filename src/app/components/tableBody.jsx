@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
@@ -23,11 +23,7 @@ const TableBody = ({ data, columns }) => {
             {data.map((item) => (
                 <tr key={item._id}>
                     {Object.keys(columns).map((column) => (
-                        <td key={column}>
-                            <Link to={`/users/${item._id}`}>
-                                {renderContent(item, column)}
-                            </Link>
-                        </td>
+                        <td key={column}>{renderContent(item, column)}</td>
                     ))}
                 </tr>
             ))}

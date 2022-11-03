@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Bookmarks from "./bookmarks";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
+import UsersList from "./usersList";
 
 const UserTable = ({
     users,
@@ -14,7 +15,11 @@ const UserTable = ({
     onDelete
 }) => {
     const columns = {
-        name: { path: "name", name: "Имя" },
+        name: {
+            path: "name",
+            name: "Имя",
+            component: (user) => <UsersList user={user} />
+        },
         qualities: {
             name: "Качества",
             component: (user) => <QualitiesList qualities={user.qualities} />
