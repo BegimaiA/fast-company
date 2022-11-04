@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import SearchStatus from "./searchStatus";
 
-const Users = () => {
+const UsersList = () => {
     const pageSize = 6;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
@@ -105,7 +105,7 @@ const Users = () => {
         </div>
     );
 };
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.arrayOf(PropTypes.object)
 };
-export default Users;
+export default UsersList;

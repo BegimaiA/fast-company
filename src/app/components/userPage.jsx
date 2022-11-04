@@ -1,35 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import API from "../../api";
+import PropTypes from "prop-types";
+import QualitiesList from "./qualitiesList";
 
-const UserPage = () => {
-    const params = useParams();
-    console.log(params.userId);
+const UserPage = ({ userId }) => {
     const history = useHistory();
     const [user, setUser] = useState({});
-    console.log("params", params);
-    console.log("user", user);
+
     useEffect(() => {
-        API.users.fetchById(params.userId).then((data) => setUser(data));
-    }, [user]);
+        API.users.fetchById(userId).then((data) => setUser(data));
+    }, []);
     const handleMoveToUsers = (userId) => {
         userId ? history.push("/users") : history.replace("/users");
     };
+
     return (
-        <div>
-            {user?._id ? (
+        <>
+            {user ? (
                 <>
                     <h1>{user.name}</h1>
                     <h4>
-                        {user.qualities?.map((item) => (
-                            <span
-                                className={"badge m-2 bg-" + item.color}
-                                key={user._id}
-                            >
-                                {" "}
-                                {item.name}
-                            </span>
-                        ))}
+                        <QualitiesList qualities={user.qualities} />
                     </h4>
                     <h4>Профессия:{user.profession?.name} </h4>
                     <h5>Встретился, раз: {user.completedMeetings}</h5>
@@ -42,10 +34,13 @@ const UserPage = () => {
                     </button>
                 </>
             ) : (
-                "Loading"
+                <h3>"Loading"</h3>
             )}
-        </div>
+        </>
     );
+};
+UserPage.propTypes = {
+    userId: PropTypes.string.isRequired
 };
 
 export default UserPage;
