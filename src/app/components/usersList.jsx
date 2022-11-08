@@ -7,6 +7,7 @@ import UserTable from "./userTable";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import SearchStatus from "./searchStatus";
+import SearchUser from "./searchUser";
 
 const UsersList = () => {
     const pageSize = 6;
@@ -15,6 +16,12 @@ const UsersList = () => {
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const [users, setUsers] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+
+    const handleSearchInput = (e) => {
+        setSearchInput(e.target.value.trim());
+    };
+
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
     }, []);
@@ -56,6 +63,19 @@ const UsersList = () => {
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
     };
+    function searchUser() {
+        setUsers(
+        users?.filter((user) =>
+            user.name.toLowerCase().includes(searchInput.toLowerCase())
+          )
+        )
+        setSearchInput("");
+    }
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+           searchUser()
+        }
+    }
 
     const count = filteredUsers.length;
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -84,6 +104,12 @@ const UsersList = () => {
             )}
             <div className="d-flex flex-column">
                 <SearchStatus length={count} />
+                <SearchUser
+                    onSearchInput={handleSearchInput}
+                    searchInput={searchInput}
+                    handleKeyPress={handleKeyPress}
+                    handleClick={searchUser}
+                />
                 {count > 0 && (
                     <UserTable
                         users={userCrop}

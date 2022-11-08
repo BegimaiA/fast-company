@@ -1,14 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
 const TableBody = ({ data, columns }) => {
-    const params = useParams();
-    console.log(params._id);
-
     const renderContent = (item, column) => {
-        console.log("item", item);
         if (columns[column].component) {
             const component = columns[column].component;
             if (typeof component === "function") {
