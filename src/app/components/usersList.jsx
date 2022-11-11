@@ -18,10 +18,6 @@ const UsersList = () => {
     const [users, setUsers] = useState([]);
     const [searchInput, setSearchInput] = useState("");
 
-    const handleSearchInput = (e) => {
-        setSearchInput(e.target.value.trim());
-    };
-
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
     }, []);
@@ -52,6 +48,7 @@ const UsersList = () => {
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
+
     const filteredUsers = selectedProf
         ? users.filter(
               (user) =>
@@ -62,20 +59,23 @@ const UsersList = () => {
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
-    };
-    function searchUser() {
-        setUsers(
-        users?.filter((user) =>
-            user.name.toLowerCase().includes(searchInput.toLowerCase())
-          )
-        )
         setSearchInput("");
-    }
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter") {
-           searchUser()
-        }
-    }
+    };
+    // Функция для поиска по имени
+    const searchUser = () => {
+        searchInput  &&
+            setUsers(users?.filter((user) =>
+                    user.name.toLowerCase().includes(searchInput.toLowerCase())
+                )
+
+            )
+    };
+
+    const handleSearchInput = (e) => {
+        setSearchInput(e.target.value.trim());
+        searchUser()
+
+    };
 
     const count = filteredUsers.length;
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
@@ -107,8 +107,6 @@ const UsersList = () => {
                 <SearchUser
                     onSearchInput={handleSearchInput}
                     searchInput={searchInput}
-                    handleKeyPress={handleKeyPress}
-                    handleClick={searchUser}
                 />
                 {count > 0 && (
                     <UserTable
