@@ -47,24 +47,27 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, searchInput]);
 
-    const filteredUsers = selectedProf
+    const filteredUsers = searchInput ?
+      users?.filter((user) =>
+        user.name.toLowerCase().indexOf(searchInput.toLowerCase())!== -1
+      )
+      : selectedProf
         ? users.filter(
               (user) =>
                   JSON.stringify(user.profession) ===
                   JSON.stringify(selectedProf)
           )
-        : users?.filter((user) =>
-              user.name.toLowerCase().includes(searchInput.toLowerCase())
-          );
+        : users;
 
     const handleProfessionSelect = (item) => {
+        if(searchInput!== "") setSearchInput("");
         setSelectedProf(item);
-        setSearchInput("");
     };
 
     const handleSearchInput = (e) => {
+        setSelectedProf(undefined);
         setSearchInput(e.target.value.trim());
     };
 
