@@ -55,26 +55,17 @@ const UsersList = () => {
                   JSON.stringify(user.profession) ===
                   JSON.stringify(selectedProf)
           )
-        : users;
+        : users?.filter((user) =>
+              user.name.toLowerCase().includes(searchInput.toLowerCase())
+          );
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
         setSearchInput("");
     };
-    // Функция для поиска по имени
-    const searchUser = () => {
-        searchInput  &&
-            setUsers(users?.filter((user) =>
-                    user.name.toLowerCase().includes(searchInput.toLowerCase())
-                )
-
-            )
-    };
 
     const handleSearchInput = (e) => {
         setSearchInput(e.target.value.trim());
-        searchUser()
-
     };
 
     const count = filteredUsers.length;
